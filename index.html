@@ -15,15 +15,30 @@
 			}
 		
 		</script>
-<script>
-    // Podcast come modalità predefinita
-    if (!window.location.search &&
-        (window.location.pathname === '/' || window.location.pathname === '/index.html')) {
-        window.location.replace(window.location.pathname + '?podcast' + window.location.hash);
+<style>
+    html {
+        visibility: hidden;
     }
+</style>
 
-    if (new URLSearchParams(window.location.search).has('podcast')) {
-        document.write('<style>#directorlayout,#controlButtons{display:none!important}</style>');
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const isHome = window.location.pathname === '/' ||
+                   window.location.pathname === '/index.html';
+
+    if (isHome && !window.location.search) {
+        window.location.replace(
+            window.location.pathname + '?podcast' + window.location.hash
+        );
+    } else {
+        if (params.has('podcast')) {
+            const style = document.createElement('style');
+            style.textContent =
+                '#directorlayout, #controlButtons { display:none !important; }';
+            document.head.appendChild(style);
+        }
+
+        document.documentElement.style.visibility = 'visible';
     }
 </script>
 		<style>
