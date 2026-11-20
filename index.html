@@ -15,11 +15,17 @@
 			}
 		
 		</script>
-		<script>
-			if (new URLSearchParams(window.location.search).has('podcast')) {
-				document.write('<style>#directorlayout,#controlButtons{display:none!important}</style>');
-			}
-		</script>
+<script>
+    // Podcast come modalità predefinita
+    if (!window.location.search &&
+        (window.location.pathname === '/' || window.location.pathname === '/index.html')) {
+        window.location.replace(window.location.pathname + '?podcast' + window.location.hash);
+    }
+
+    if (new URLSearchParams(window.location.search).has('podcast')) {
+        document.write('<style>#directorlayout,#controlButtons{display:none!important}</style>');
+    }
+</script>
 		<style>
 			html {
 				background-color: #0000;
