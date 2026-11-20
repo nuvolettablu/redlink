@@ -22,27 +22,12 @@
 		</script>
 <script>
 (function () {
-    var path = window.location.pathname;
-    var search = window.location.search;
-    var isHome = path === '/' || path === '/index.html';
-    var isPodcast = new URLSearchParams(search).has('podcast');
-
-    // Se si apre la home senza parametri, reindirizza a Podcast
-    if (isHome && !search) {
-        window.location.replace('/?podcast' + window.location.hash);
-        return;
-    }
-
-    // Rende visibile la pagina solo dopo aver applicato le regole
-    var style = document.createElement('style');
-
-    style.textContent =
+    document.write(
+        '<style>' +
         'html { visibility: visible !important; }' +
-        (isPodcast
-            ? '#directorlayout, #controlButtons { display: none !important; }'
-            : '');
-
-    document.head.appendChild(style);
+        '#directorlayout, #controlButtons { display: none !important; }' +
+        '</style>'
+    );
 })();
 </script>
 		<style>
