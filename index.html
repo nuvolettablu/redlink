@@ -27,23 +27,22 @@
     var isHome = path === '/' || path === '/index.html';
     var isPodcast = new URLSearchParams(search).has('podcast');
 
+    // Se si apre la home senza parametri, reindirizza a Podcast
     if (isHome && !search) {
-        window.location.replace('/?podcast');
+        window.location.replace('/?podcast' + window.location.hash);
         return;
     }
 
-    if (isPodcast) {
-        document.write(
-            '<style>' +
-            '#directorlayout, #controlButtons {' +
-            'display:none !important;' +
-            '}' +
-            'html { visibility:visible !important; }' +
-            '</style>'
-        );
-    } else {
-        document.documentElement.style.visibility = 'visible';
-    }
+    // Rende visibile la pagina solo dopo aver applicato le regole
+    var style = document.createElement('style');
+
+    style.textContent =
+        'html { visibility: visible !important; }' +
+        (isPodcast
+            ? '#directorlayout, #controlButtons { display: none !important; }'
+            : '');
+
+    document.head.appendChild(style);
 })();
 </script>
 		<style>
