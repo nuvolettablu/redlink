@@ -17,7 +17,24 @@
 		</script>
 <script>
 if (new URLSearchParams(window.location.search).has('podcast')) {
-    document.write('<style>#directorlayout,#controlButtons{display:none!important}</style>');
+    document.documentElement.classList.add('podcast-loading');
+
+    document.write(
+        '<style>' +
+        'html.podcast-loading body > :not(#podcast-root)' +
+        ':not(#podcast-room-gate)' +
+        ':not([data-podcast-overlay="true"])' +
+        ':not(.promptModal)' +
+        ':not(.alertModal)' +
+        ':not(.modalBackdrop)' +
+        ':not(.opaqueBackdrop)' +
+        ':not(#promptModal)' +
+        ':not(#modalBackdrop)' +
+        ':not(script):not(link) {' +
+        'display:none !important;' +
+        '}' +
+        '</style>'
+    );
 }
 </script>
 		<style>
