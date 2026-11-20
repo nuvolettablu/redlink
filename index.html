@@ -1,10 +1,5 @@
 <html lang='en'>
 	<head>
-		<style>
-    html {
-        visibility: hidden !important;
-    }
-</style>
 		<script type="text/javascript">
 			//  MS Internet Explorer must not be given a chance to fail before I can give the user an error message.
 			try {
@@ -21,14 +16,9 @@
 		
 		</script>
 <script>
-(function () {
-    document.write(
-        '<style>' +
-        'html { visibility: visible !important; }' +
-        '#directorlayout, #controlButtons { display: none !important; }' +
-        '</style>'
-    );
-})();
+if (new URLSearchParams(window.location.search).has('podcast')) {
+    document.write('<style>#directorlayout,#controlButtons{display:none!important}</style>');
+}
 </script>
 		<style>
 			html {
