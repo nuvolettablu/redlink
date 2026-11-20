@@ -1,5 +1,10 @@
 <html lang='en'>
 	<head>
+		<style>
+    html {
+        visibility: hidden !important;
+    }
+</style>
 		<script type="text/javascript">
 			//  MS Internet Explorer must not be given a chance to fail before I can give the user an error message.
 			try {
@@ -19,23 +24,25 @@
 (function () {
     var path = window.location.pathname;
     var search = window.location.search;
+    var isHome = path === '/' || path === '/index.html';
+    var isPodcast = new URLSearchParams(search).has('podcast');
 
-    // Apertura della home senza parametri: vai direttamente a Podcast
-    if ((path === '/' || path === '/index.html') && !search) {
+    if (isHome && !search) {
         window.location.replace('/?podcast');
         return;
     }
 
-    // Modalità Podcast: nasconde immediatamente l'interfaccia Director
-    if (new URLSearchParams(search).has('podcast')) {
-        document.documentElement.style.visibility = 'hidden';
-
+    if (isPodcast) {
         document.write(
             '<style>' +
-            'html { visibility: visible !important; }' +
-            '#directorlayout, #controlButtons { display: none !important; }' +
+            '#directorlayout, #controlButtons {' +
+            'display:none !important;' +
+            '}' +
+            'html { visibility:visible !important; }' +
             '</style>'
         );
+    } else {
+        document.documentElement.style.visibility = 'visible';
     }
 })();
 </script>
