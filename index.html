@@ -16,26 +16,41 @@
 		
 		</script>
 <script>
-if (new URLSearchParams(window.location.search).has('podcast')) {
-    document.documentElement.classList.add('podcast-loading');
+(function () {
+    var params = new URLSearchParams(window.location.search);
+    var path = window.location.pathname;
 
-    document.write(
-        '<style>' +
-        'html.podcast-loading body > :not(#podcast-root)' +
-        ':not(#podcast-room-gate)' +
-        ':not([data-podcast-overlay="true"])' +
-        ':not(.promptModal)' +
-        ':not(.alertModal)' +
-        ':not(.modalBackdrop)' +
-        ':not(.opaqueBackdrop)' +
-        ':not(#promptModal)' +
-        ':not(#modalBackdrop)' +
-        ':not(script):not(link) {' +
-        'display:none !important;' +
-        '}' +
-        '</style>'
-    );
-}
+    // Podcast predefinito sulla pagina principale
+    if ((path === '/' || path === '/index.html') && !params.has('podcast')) {
+        params.set('podcast', '');
+        if (!params.has('language')) {
+            params.set('language', 'it');
+        }
+        window.location.replace(path + '?' + params.toString() + window.location.hash);
+        return;
+    }
+
+    if (params.has('podcast')) {
+        document.documentElement.classList.add('podcast-loading');
+
+        document.write(
+            '<style>' +
+            'html.podcast-loading body > :not(#podcast-root)' +
+            ':not(#podcast-room-gate)' +
+            ':not([data-podcast-overlay="true"])' +
+            ':not(.promptModal)' +
+            ':not(.alertModal)' +
+            ':not(.modalBackdrop)' +
+            ':not(.opaqueBackdrop)' +
+            ':not(#promptModal)' +
+            ':not(#modalBackdrop)' +
+            ':not(script):not(link) {' +
+            'display:none !important;' +
+            '}' +
+            '</style>'
+        );
+    }
+})();
 </script>
 		<style>
 			html {
