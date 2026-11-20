@@ -23,9 +23,6 @@
     // Podcast predefinito sulla pagina principale
     if ((path === '/' || path === '/index.html') && !params.has('podcast')) {
         params.set('podcast', '');
-        if (!params.has('language')) {
-            params.set('language', 'it');
-        }
         window.location.replace(path + '?' + params.toString() + window.location.hash);
         return;
     }
