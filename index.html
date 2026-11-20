@@ -15,31 +15,29 @@
 			}
 		
 		</script>
-<style>
-    html {
-        visibility: hidden;
-    }
-</style>
-
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const isHome = window.location.pathname === '/' ||
-                   window.location.pathname === '/index.html';
+(function () {
+    var path = window.location.pathname;
+    var search = window.location.search;
 
-    if (isHome && !window.location.search) {
-        window.location.replace(
-            window.location.pathname + '?podcast' + window.location.hash
-        );
-    } else {
-        if (params.has('podcast')) {
-            const style = document.createElement('style');
-            style.textContent =
-                '#directorlayout, #controlButtons { display:none !important; }';
-            document.head.appendChild(style);
-        }
-
-        document.documentElement.style.visibility = 'visible';
+    // Apertura della home senza parametri: vai direttamente a Podcast
+    if ((path === '/' || path === '/index.html') && !search) {
+        window.location.replace('/?podcast');
+        return;
     }
+
+    // Modalità Podcast: nasconde immediatamente l'interfaccia Director
+    if (new URLSearchParams(search).has('podcast')) {
+        document.documentElement.style.visibility = 'hidden';
+
+        document.write(
+            '<style>' +
+            'html { visibility: visible !important; }' +
+            '#directorlayout, #controlButtons { display: none !important; }' +
+            '</style>'
+        );
+    }
+})();
 </script>
 		<style>
 			html {
